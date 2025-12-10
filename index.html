@@ -10,7 +10,6 @@
 <meta name="keywords" content="Shajid Zaman Shuvro, Portfolio, Quizzing, Debating, Creative Writing, Web Development, C Programming, Animal Lover, Skills, Achievements">
 <meta name="author" content="Shajid Zaman Shuvro">
 
-
 <meta name="google-site-verification" content="6n9_r6E3Lt-2y0oCn-v90VmV30spjeWodfMifUujoR4" />
 
 <style>
@@ -27,47 +26,15 @@ nav a:hover {color:#8ab6f3;}
 .skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;list-style:none;padding:0;margin:0;}
 .skills-grid li {background:rgba(138,182,243,0.2);padding:10px 12px;border-radius:10px;text-align:center;font-weight:600;transition:transform 0.3s,background 0.3s;}
 .skills-grid li:hover {transform:scale(1.1);background:rgba(138,182,243,0.35);}
-
-/* SLIDESHOW */
-.slideshow-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.slide {
-  display: none;
-  text-align: center;
-}
-.slide img {
-  width: 100%;
-  border-radius: 12px;
-  border: 2px solid #8ab6f3;
-  max-height: 450px;
-  object-fit: contain;
-}
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  padding: 12px;
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
-  transform: translateY(-50%);
-  transition: 0.3s;
-  user-select: none;
-}
-.prev {left: 10px;}
-.next {right: 10px;}
-.prev:hover, .next:hover {color: #8ab6f3;}
-
+.slideshow-container {display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:16px;}
+.slide {flex:0 0 auto;width:300px;scroll-snap-align:start;border-radius:12px;border:2px solid #8ab6f3;transition:transform 0.3s;cursor:pointer;}
+.slide img {width:100%;border-radius:12px;}
 a.email {color:orange;}
 footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
-
-@media(max-width:700px){
-  .profile-section{flex-direction:column;align-items:center;}
-  .bio{text-align:center;}
-}
+#lightbox {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;}
+#lightbox img {max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,0.7);}
+#lightbox:target {display:flex;}
+@media(max-width:700px){.profile-section{flex-direction:column;align-items:center;}.bio{text-align:center;}}
 </style>
 </head>
 <body>
@@ -78,7 +45,7 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#achievements">Achievements</a>
-<a href="#daily">Daily Tune</a>
+<a href="#daily-tune">Daily Tune</a>
 <a href="#contact">Contact</a>
 </nav>
 </header>
@@ -89,7 +56,7 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 <img src="assets/profile.jpg" alt="Shajid Zaman Shuvro" class="profile-img">
 <div class="bio">
 <h2>About Me</h2>
-<p>Hola!👋 I'm Shajid from Bangladesh trying to do something new and make differences all the time. Learner, Enthusiastic, Vigorous and a living shroud of mystery!</p>
+<p>Hola!👋I'm Shajid from Bangladesh trying to do something new and make differences all the time. Learner, Enthusiastic, Vigorous and a living shroud of mystery! For any inquiry or suggestion just knock me and I will be just there for you.Very much eager to work together! </p>
 </div>
 </section>
 
@@ -112,24 +79,20 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 
 <section id="achievements" class="card">
 <h2>Co-curricular Achievements</h2>
-
-<div class="slideshow-container" id="slideshow"></div>
-
-<a class="prev" onclick="changeSlide(-1)">❮</a>
-<a class="next" onclick="changeSlide(1)">❯</a>
-
+<div class="slideshow-container" id="slideshow">
+<!-- Slideshow images will be injected by JS -->
+</div>
 </section>
 
-<section id="daily" class="card">
+<section id="daily-tune" class="card">
 <h2>Daily Tune</h2>
-<p>This is your personal corner where you’ll post journals, vlogs, thoughts, articles, and daily mind sparks.  
-Soon we’ll make a separate page that auto-lists every post! 🚀</p>
+<p>Here I will post articles, vlogs, journals, and thoughts. Stay tuned for my updates!</p>
 </section>
 
 <section id="contact" class="card">
 <h2>Contact</h2>
-<p><b>Address:</b> House 82/3/6 Green City, Pallabi , Dhaka-1206, Bangladesh</p>
-<p><b>Email:</b> <a href="mailto:shajidzaman007@gmail.com" class="email">shajidzaman007@gmail.com</a></p>
+<p>Email: <a href="mailto:shajidzaman007@gmail.com" class="email">shajidzaman007@gmail.com</a></p>
+<p>Address: House 82/3/6 Green City, Pallabi, Dhaka-1206, Bangladesh</p>
 </section>
 
 </main>
@@ -138,11 +101,13 @@ Soon we’ll make a separate page that auto-lists every post! 🚀</p>
 <p>© <span id="year"></span> Shajid Zaman Shuvro — All rights reserved.</p>
 </footer>
 
+<div id="lightbox"><img src="" alt="Achievement"></div>
+
 <script>
-// YEAR
+// Current year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// SLIDESHOW
+// Achievements slideshow
 const slideshow = document.getElementById("slideshow");
 const folder = "assets/achievements/";
 const images = [
@@ -164,28 +129,30 @@ const images = [
 'Screenshot From 2025-12-10 13-43-02.png'
 ];
 
-images.forEach((file, i) => {
-  slideshow.innerHTML += `
-    <div class="slide">
-      <img src="${folder + file}" alt="${file}">
-    </div>`;
+images.forEach(file => {
+  const div = document.createElement('div');
+  div.className = 'slide';
+  const img = document.createElement('img');
+  img.src = folder + file;
+  img.alt = file;
+  div.appendChild(img);
+  slideshow.appendChild(div);
 });
 
-let slideIndex = 1;
-showSlide(slideIndex);
+// Lightbox for click-to-enlarge
+document.querySelectorAll('.slide img').forEach(img => {
+  img.onclick = () => {
+    document.querySelector('#lightbox img').src = img.src;
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+});
 
-function changeSlide(n) {
-  showSlide(slideIndex += n);
-}
-function showSlide(n) {
-  let slides = document.getElementsByClassName("slide");
-  if (n > slides.length) slideIndex = 1;
-  if (n < 1) slideIndex = slides.length;
-  for (let i=0;i<slides.length;i++) slides[i].style.display = "none";
-  slides[slideIndex-1].style.display = "block";
-}
+document.getElementById('lightbox').onclick = e => {
+  if(e.target === document.getElementById('lightbox')){
+    document.getElementById('lightbox').style.display = 'none';
+  }
+};
 </script>
-
 </body>
 </html>
 
