@@ -10,6 +10,7 @@
 <meta name="keywords" content="Shajid Zaman Shuvro, Portfolio, Quizzing, Debating, Creative Writing, Web Development, C Programming, Animal Lover, Skills, Achievements">
 <meta name="author" content="Shajid Zaman Shuvro">
 
+
 <meta name="google-site-verification" content="6n9_r6E3Lt-2y0oCn-v90VmV30spjeWodfMifUujoR4" />
 
 <style>
@@ -26,15 +27,47 @@ nav a:hover {color:#8ab6f3;}
 .skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;list-style:none;padding:0;margin:0;}
 .skills-grid li {background:rgba(138,182,243,0.2);padding:10px 12px;border-radius:10px;text-align:center;font-weight:600;transition:transform 0.3s,background 0.3s;}
 .skills-grid li:hover {transform:scale(1.1);background:rgba(138,182,243,0.35);}
-.achievements-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:16px;}
-.achievements-grid img {width:100%;border-radius:12px;border:2px solid #8ab6f3;transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
-.achievements-grid img:hover {transform:scale(1.05);box-shadow:0 6px 20px rgba(0,0,0,0.7);}
+
+/* SLIDESHOW */
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.slide {
+  display: none;
+  text-align: center;
+}
+.slide img {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px solid #8ab6f3;
+  max-height: 450px;
+  object-fit: contain;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  transform: translateY(-50%);
+  transition: 0.3s;
+  user-select: none;
+}
+.prev {left: 10px;}
+.next {right: 10px;}
+.prev:hover, .next:hover {color: #8ab6f3;}
+
 a.email {color:orange;}
 footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
-#lightbox {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;}
-#lightbox img {max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,0.7);}
-#lightbox:target {display:flex;}
-@media(max-width:700px){.profile-section{flex-direction:column;align-items:center;}.bio{text-align:center;}}
+
+@media(max-width:700px){
+  .profile-section{flex-direction:column;align-items:center;}
+  .bio{text-align:center;}
+}
 </style>
 </head>
 <body>
@@ -45,6 +78,7 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#achievements">Achievements</a>
+<a href="#daily">Daily Tune</a>
 <a href="#contact">Contact</a>
 </nav>
 </header>
@@ -55,7 +89,7 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 <img src="assets/profile.jpg" alt="Shajid Zaman Shuvro" class="profile-img">
 <div class="bio">
 <h2>About Me</h2>
-<p>Hola!👋 I'm a lilliputian from Bangladesh trying to do something new and make differences all the time doing MISCHIEF and YAWNING. Learner, Enthusiastic, Vigorous, and Mad.</p>
+<p>Hola!👋 I'm Shajid from Bangladesh trying to do something new and make differences all the time. Learner, Enthusiastic, Vigorous and a living shroud of mystery!</p>
 </div>
 </section>
 
@@ -78,14 +112,24 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 
 <section id="achievements" class="card">
 <h2>Co-curricular Achievements</h2>
-<div class="achievements-grid" id="achievementsGrid">
-<!-- Images will go here -->
-</div>
+
+<div class="slideshow-container" id="slideshow"></div>
+
+<a class="prev" onclick="changeSlide(-1)">❮</a>
+<a class="next" onclick="changeSlide(1)">❯</a>
+
+</section>
+
+<section id="daily" class="card">
+<h2>Daily Tune</h2>
+<p>This is your personal corner where you’ll post journals, vlogs, thoughts, articles, and daily mind sparks.  
+Soon we’ll make a separate page that auto-lists every post! 🚀</p>
 </section>
 
 <section id="contact" class="card">
 <h2>Contact</h2>
-<p>Email: <a href="mailto:shajidzaman007@gmail.com" class="email">shajidzaman007@gmail.com</a></p>
+<p><b>Address:</b> House 82/3/6 Green City, Pallabi , Dhaka-1206, Bangladesh</p>
+<p><b>Email:</b> <a href="mailto:shajidzaman007@gmail.com" class="email">shajidzaman007@gmail.com</a></p>
 </section>
 
 </main>
@@ -94,15 +138,13 @@ footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
 <p>© <span id="year"></span> Shajid Zaman Shuvro — All rights reserved.</p>
 </footer>
 
-<div id="lightbox"><img src="" alt="Achievement"></div>
-
 <script>
-// Current year
+// YEAR
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Achievements images
-const achievementsGrid = document.getElementById('achievementsGrid');
-const achievementsFolder = 'assets/achievements/';
+// SLIDESHOW
+const slideshow = document.getElementById("slideshow");
+const folder = "assets/achievements/";
 const images = [
 'WhatsApp Image 2025-12-10 at 10.34.17.jpg',
 'WhatsApp Image 2025-12-10 at 10.34.17 (1).jpg',
@@ -118,27 +160,32 @@ const images = [
 'WhatsApp Image 2025-12-10 at 10.34.21 (1).jpg',
 'WhatsApp Image 2025-12-10 at 10.34.21 (2).jpg',
 'WhatsApp Image 2025-12-10 at 10.34.22.jpg',
-'WhatsApp Image 2025-12-10 at 10.34.22 (1).jpg'
+'WhatsApp Image 2025-12-10 at 10.34.22 (1).jpg',
+'Screenshot From 2025-12-10 13-43-02.png'
 ];
 
-images.forEach(file => {
-  const img = document.createElement('img');
-  img.src = achievementsFolder + file;
-  img.alt = file;
-  img.onclick = () => {
-    document.querySelector('#lightbox img').src = img.src;
-    document.getElementById('lightbox').style.display = 'flex';
-  };
-  achievementsGrid.appendChild(img);
+images.forEach((file, i) => {
+  slideshow.innerHTML += `
+    <div class="slide">
+      <img src="${folder + file}" alt="${file}">
+    </div>`;
 });
 
-// Close lightbox
-document.getElementById('lightbox').onclick = e => {
-  if(e.target === document.getElementById('lightbox')){
-    document.getElementById('lightbox').style.display = 'none';
-  }
-};
+let slideIndex = 1;
+showSlide(slideIndex);
+
+function changeSlide(n) {
+  showSlide(slideIndex += n);
+}
+function showSlide(n) {
+  let slides = document.getElementsByClassName("slide");
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+  for (let i=0;i<slides.length;i++) slides[i].style.display = "none";
+  slides[slideIndex-1].style.display = "block";
+}
 </script>
+
 </body>
 </html>
 
