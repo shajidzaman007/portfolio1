@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shajid Zaman Shuvro — Portfolio</title>
+<style>
+body {margin:0;font-family:sans-serif;background:linear-gradient(135deg,#0b0c1e,#0a0f2c,#1c2b4a,#0b0c1e);color:#e0e6f2;}
+header {position:sticky;top:0;background:rgba(10,15,35,0.9);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(6px);}
+header h1 {margin:0;color:#8ab6f3;}
+nav a {color:#e0e6f2;text-decoration:none;margin-left:24px;font-weight:600;transition:color 0.3s;}
+nav a:hover {color:#8ab6f3;}
+.container {max-width:1000px;margin:0 auto;padding:24px;}
+.card {background:rgba(20,25,45,0.85);border-radius:14px;padding:24px;margin-bottom:32px;}
+.profile-section {display:flex;flex-wrap:wrap;align-items:center;gap:24px;}
+.profile-img {width:180px;border-radius:50%;border:3px solid #8ab6f3;transition:transform 0.4s;}
+.profile-img:hover {transform:scale(1.05) rotate(2deg);}
+.skills-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;list-style:none;padding:0;margin:0;}
+.skills-grid li {background:rgba(138,182,243,0.2);padding:10px 12px;border-radius:10px;text-align:center;font-weight:600;transition:transform 0.3s,background 0.3s;}
+.skills-grid li:hover {transform:scale(1.1);background:rgba(138,182,243,0.35);}
+.achievements-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:16px;}
+.achievements-grid img {width:100%;border-radius:12px;border:2px solid #8ab6f3;transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+.achievements-grid img:hover {transform:scale(1.05);box-shadow:0 6px 20px rgba(0,0,0,0.7);}
+a.email {color:orange;}
+footer {text-align:center;color:#a6b0c3;padding:24px 0;font-size:14px;}
+#lightbox {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;}
+#lightbox img {max-width:90%;max-height:90%;border-radius:12px;box-shadow:0 0 20px rgba(0,0,0,0.7);}
+#lightbox:target {display:flex;}
+@media(max-width:700px){.profile-section{flex-direction:column;align-items:center;}.bio{text-align:center;}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Shajid Zaman Shuvro</h1>
+<nav>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#achievements">Achievements</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<main class="container">
+
+<section id="about" class="card profile-section">
+<img src="assets/profile.jpg" alt="Shajid Zaman Shuvro" class="profile-img">
+<div class="bio">
+<h2>About Me</h2>
+<p>Hola!👋 I'm a lilliputian from Bangladesh trying to do something new and make differences all the time doing MISCHIEF and YAWNING. Learner, Enthusiastic, Vigorous, and Mad.</p>
+</div>
+</section>
+
+<section id="skills" class="card">
+<h2>Skills</h2>
+<ul class="skills-grid">
+<li><a href="skills/quizzing.html" style="color:inherit;text-decoration:none;">Quizzing</a></li>
+<li><a href="skills/debating.html" style="color:inherit;text-decoration:none;">Debating & Public Speaking</a></li>
+<li><a href="skills/writing.html" style="color:inherit;text-decoration:none;">Creative Free-hand Writing</a></li>
+<li><a href="skills/thinking.html" style="color:inherit;text-decoration:none;">Critical Thinking & Problem Solving</a></li>
+<li><a href="skills/html.html" style="color:inherit;text-decoration:none;">HTML & Web Development</a></li>
+<li><a href="skills/cprog.html" style="color:inherit;text-decoration:none;">C Programming</a></li>
+<li><a href="skills/office.html" style="color:inherit;text-decoration:none;">MS Office</a></li>
+<li><a href="skills/research.html" style="color:inherit;text-decoration:none;">Research & Analytical Skills</a></li>
+<li><a href="skills/team.html" style="color:inherit;text-decoration:none;">Teamwork & Leadership</a></li>
+<li><a href="skills/animal.html" style="color:inherit;text-decoration:none;">Animal Care & Empathy</a></li>
+<li><a href="skills/heart.html" style="color:inherit;text-decoration:none;">Well hearted towards every single creation</a></li>
+</ul>
+</section>
+
+<section id="achievements" class="card">
+<h2>Co-curricular Achievements</h2>
+<div class="achievements-grid" id="achievementsGrid">
+<!-- Images will go here -->
+</div>
+</section>
+
+<section id="contact" class="card">
+<h2>Contact</h2>
+<p>Email: <a href="mailto:shajidzaman007@gmail.com" class="email">shajidzaman007@gmail.com</a></p>
+</section>
+
+</main>
+
+<footer>
+<p>© <span id="year"></span> Shajid Zaman Shuvro — All rights reserved.</p>
+</footer>
+
+<div id="lightbox"><img src="" alt="Achievement"></div>
+
+<script>
+// Current year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Achievements images
+const achievementsGrid = document.getElementById('achievementsGrid');
+const achievementsFolder = 'assets/achievements/';
+const images = [
+'WhatsApp Image 2025-12-10 at 10.34.17.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.17 (1).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.17 (2).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.18.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.18 (1).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.19.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.19 (1).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.20.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.20 (1).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.20 (2).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.21.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.21 (1).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.21 (2).jpg',
+'WhatsApp Image 2025-12-10 at 10.34.22.jpg',
+'WhatsApp Image 2025-12-10 at 10.34.22 (1).jpg'
+];
+
+images.forEach(file => {
+  const img = document.createElement('img');
+  img.src = achievementsFolder + file;
+  img.alt = file;
+  img.onclick = () => {
+    document.querySelector('#lightbox img').src = img.src;
+    document.getElementById('lightbox').style.display = 'flex';
+  };
+  achievementsGrid.appendChild(img);
+});
+
+// Close lightbox
+document.getElementById('lightbox').onclick = e => {
+  if(e.target === document.getElementById('lightbox')){
+    document.getElementById('lightbox').style.display = 'none';
+  }
+};
+</script>
+</body>
+</html>
+
